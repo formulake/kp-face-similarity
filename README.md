@@ -11,9 +11,9 @@ This script uses the [InsightFace](https://github.com/deepinsight/insightface) m
 - [Gradio](https://github.com/gradio-app/gradio) library
 
 You can install the required libraries using `pip`:
-
+      
     ```bash
-    pip install insightface gradio
+    pip install -r requirements.txt
 
 ## Usage
 
@@ -51,7 +51,7 @@ You can install the required libraries using `pip`:
     ```bash
     python script_name.py
 
-Access the Gradio interface: Once the script is running, open your web browser and navigate to http://127.0.0.1:7860/. This will open the Gradio interface for processing images.
+Access the Gradio interface: Once the script is running, open your web browser and navigate to [http://127.0.0.1:7860/](http://127.0.0.1:7860/). This will open the Gradio interface for processing images.
 
 ## How to Use
 1. Reference Image: Upload the reference image that you want to compare other images to.

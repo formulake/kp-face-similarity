@@ -65,7 +65,7 @@ Process Status: The processing status will be displayed in this textbox.
 - The script will create folders for each selected bucket in the source folder and move images accordingly.
 - Images with no detected faces in the source folder will be moved to a "rejected" folder.
 
-##Troubleshooting
+## Troubleshooting
 If you encounter any issues or errors while using this script, please check the following:
 
 - Ensure that you have installed the required libraries (insightface and gradio) as mentioned in the installation instructions.

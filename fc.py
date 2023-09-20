@@ -1,5 +1,7 @@
-import gradio as gr
 import os
+import sys
+import subprocess
+import gradio as gr
 import shutil
 import cv2
 import numpy as np
@@ -8,6 +10,62 @@ import webbrowser
 import logging
 import threading
 from ifnude import detect
+
+# Function to create a virtual environment
+def create_venv():
+    if sys.platform == 'win32':
+        os.system('python -m venv venv')  # Windows
+    else:
+        os.system('python3 -m venv venv')  # macOS
+
+# Function to activate the virtual environment
+def activate_venv():
+    if sys.platform == 'win32':
+        os.system('venv\\Scripts\\activate')  # Windows
+    else:
+        os.system('source venv/bin/activate')  # macOS
+
+# Function to install dependencies
+def install_dependencies():
+    if sys.platform == 'win32':
+        os.system('pip install -r requirements.txt')  # Windows
+    else:
+        os.system('pip3 install -r requirements.txt')  # macOS
+
+# Function to update dependencies
+def update_dependencies():
+    if sys.platform == 'win32':
+        os.system('pip install --upgrade -r requirements.txt')  # Windows
+    else:
+        os.system('pip3 install --upgrade -r requirements.txt')  # macOS
+
+# Check the operating system
+if sys.platform == 'win32':
+    print("Windows OS detected.")
+else:
+    print("macOS OS detected.")
+
+# Check if venv folder exists
+if not os.path.exists('venv'):
+    print("Virtual environment not found. Creating venv...")
+    create_venv()
+
+# Activate the virtual environment
+activate_venv()
+
+# Check if dependencies are installed
+try:
+    import gradio  # Check if Gradio is importable
+    print("Dependencies are already installed.")
+except ImportError:
+    print("Dependencies not found. Installing...")
+    install_dependencies()
+
+# Check for updates to dependencies
+print("Checking for updates to dependencies...")
+update_dependencies()
+
+# Continue with the rest of the script (Gradio interface, etc.)
 
 # Initialize logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')

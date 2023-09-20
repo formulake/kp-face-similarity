@@ -38,5 +38,8 @@ else:
 # Activate the virtual environment
 activate_venv()
 
-# Execute launch.py
-subprocess.call(["python", "launch.py"])
+# Execute launch.py with the appropriate Python executable
+if sys.platform == 'win32':
+    subprocess.call(["python", "launch.py"])  # Use 'python' on Windows
+else:
+    subprocess.call(["python3", "launch.py"])  # Use 'python3' on macOS

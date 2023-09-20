@@ -1,15 +1,6 @@
 import os
 import sys
 import subprocess
-import gradio as gr
-import shutil
-import cv2
-import numpy as np
-import insightface
-import webbrowser
-import logging
-import threading
-from ifnude import detect
 
 # Function to create a virtual environment
 def create_venv():
@@ -66,6 +57,16 @@ print("Checking for updates to dependencies...")
 update_dependencies()
 
 # Continue with the rest of the script (Gradio interface, etc.)
+
+import gradio as gr
+import shutil
+import cv2
+import numpy as np
+import insightface
+import webbrowser
+import logging
+import threading
+from ifnude import detect
 
 # Initialize logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')

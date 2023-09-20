@@ -1,19 +1,16 @@
 # Face Similarity Image Processor
 
-This script uses the [InsightFace](https://github.com/deepinsight/insightface) model to process a set of images, comparing them to a reference image and sorting them into different "buckets" based on their similarity to the reference image. It provides a Gradio interface for easy interaction.
+This script uses the [InsightFace](https://github.com/deepinsight/insightface) model to process a set of images, comparing them to a reference image and sorting them into different "buckets" based on their similarity to the reference image. It also has the option of filtering out NSFW images if the checkbox is enabled. NSFW sensitivity can be changed using the slider. For a default value, set it to 0.7. Setting it to 0 will disable the filter, much like unchecking the checkbox will. The application runs through a Gradio interface for easy of use.
 
 ## Installation
 
 ### Prerequisites
 
-- Python 3.6+
+- Python 3.10
 - [InsightFace](https://github.com/deepinsight/insightface) library
 - [Gradio](https://github.com/gradio-app/gradio) library
-
-You can install the required libraries using `pip`:
-      
-    ```bash
-    pip install -r requirements.txt
+- [ifnude](https://github.com/s0md3v/ifnude) library
+- [mediapipe](https://github.com/google/mediapipe) library
 
 ## Usage
 
@@ -24,7 +21,7 @@ You can install the required libraries using `pip`:
 2. **Install the required libraries:** Open a command prompt and run the following commands to install the required libraries.
 
    ```bash
-   pip install insightface gradio
+   pip install insightface gradio mediapipe ifnude
 
 3. Run the script: Open a command prompt in the directory where you saved the script and run it using Python.
 
@@ -41,15 +38,31 @@ You can install the required libraries using `pip`:
 ## MacOS Manual
 
 1. Clone or download the script: Download the script to your computer.
-2. Install the required libraries: Open a terminal and run the following commands to install the required libraries.
 
     ```bash
-    pip3 install insightface gradio
+    git clone https://github.com/formulake/kp-face-similarity.git
 
-3. Run the script: Open a terminal in the directory where you saved the script and run it using Python.
+2. Navigate to the folder and create a Virtual Environment
 
     ```bash
-    python script_name.py
+    cd kp-face-similarity
+    python3 -m venv venv
+
+3. Activate the Venv
+
+    ```bash
+    source venv/bin/activate
+
+4. Install the required libraries: Open a terminal and run the following commands to install the required libraries.
+
+    ```bash
+    pip3 install -r requirements.txt
+
+5. Run the script: Open a terminal in the directory where you saved the script and run it using Python.
+
+    ```bash
+    source venv/bin/activate
+    python3 fc.py
 
 Access the Gradio interface: Once the script is running, open your web browser and navigate to [http://127.0.0.1:7860/](http://127.0.0.1:7860/). This will open the Gradio interface for processing images.
 

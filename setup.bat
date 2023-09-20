@@ -9,6 +9,6 @@ pip install -r "%SCRIPT_DIR%requirements.txt"
 echo Setup complete!
 pause
 
-start run-fc.bat
+start fc.bat
 exit
 

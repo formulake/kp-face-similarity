@@ -7,11 +7,12 @@ import insightface
 import webbrowser
 import logging
 import threading
+from ifnude import detect
 
 # Initialize logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def process_images(reference_image, source_folder, selected_buckets):
+def process_images(reference_image, source_folder, selected_buckets, nsfw_check, nsfw_sensitivity):
     try:
         # Load the reference image using OpenCV
         ref_img = cv2.imread(reference_image.name)
@@ -49,6 +50,13 @@ def process_images(reference_image, source_folder, selected_buckets):
                 print(f"Error loading image: {filename}. Skipping...")
                 continue
 
+            # NSFW check
+            if nsfw_check:
+                nsfw_result = detect(filepath)
+                if nsfw_result and any([res['score'] > nsfw_sensitivity for res in nsfw_result]):
+                    shutil.move(filepath, os.path.join(source_folder, "rejected"))
+                    continue
+
             src_img_rgb = cv2.cvtColor(src_img, cv2.COLOR_BGR2RGB)
             src_faces = model.get(src_img_rgb)
             if not src_faces:
@@ -72,7 +80,6 @@ def process_images(reference_image, source_folder, selected_buckets):
             image_count += 1
 
         return f"Processed {image_count} images."
-
         
     except Exception as e:
         logging.error(f"Error processing images: {e}")
@@ -86,7 +93,9 @@ def launch_gradio(event):
             [
                 gr.components.File(label="Reference Image"),
                 gr.components.Textbox(label="Source Folder Path"),
-                gr.components.CheckboxGroup(choices=[str(i/10) for i in range(1, 11)], label="Select Buckets (10% increments)")
+                gr.components.CheckboxGroup(choices=[str(i/10) for i in range(1, 11)], label="Select Buckets (10% increments)"),
+                gr.components.Checkbox(label="Enable NSFW Check"),
+                gr.components.Slider(minimum=0, maximum=1, default=0.7, label="NSFW Sensitivity")
             ],
             gr.components.Textbox(label="Process Status")
         )

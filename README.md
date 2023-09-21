@@ -2,6 +2,8 @@
 
 This script uses the [InsightFace](https://github.com/deepinsight/insightface) model to process a set of images, comparing them to a reference image and sorting them into different "buckets" based on their similarity to the reference image. It also has the option of filtering out NSFW images if the checkbox is enabled. NSFW sensitivity can be changed using the slider. For a default value, set it to 0.7. Setting it to 0 will disable the filter, much like unchecking the checkbox will. The application runs through a Gradio interface for easy of use.
 
+<img width="991" alt="fc_screenshot" src="https://github.com/formulake/kp-face-similarity/assets/7622615/fd3ac795-88b9-4bbc-af7b-f16dacb3b15d">
+
 ## Installation
 
 ### Prerequisites

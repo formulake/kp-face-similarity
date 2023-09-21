@@ -8,9 +8,14 @@ import webbrowser
 import logging
 import threading
 from ifnude import detect
+import random  # Import the random module
 
 # Initialize logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+# Function to generate a random port within the specified range
+def generate_random_port():
+    return random.randint(7862, 7868)
 
 def process_images(reference_image, source_folder, selected_buckets, nsfw_check, nsfw_sensitivity):
     try:
@@ -87,6 +92,9 @@ def process_images(reference_image, source_folder, selected_buckets, nsfw_check,
 
 def launch_gradio(event):
     try:
+        # Generate a random port within the specified range
+        port = generate_random_port()
+        
         # Gradio Interface
         iface = gr.Interface(
             process_images,
@@ -97,10 +105,14 @@ def launch_gradio(event):
                 gr.components.Checkbox(label="Enable NSFW Check"),
                 gr.components.Slider(minimum=0, maximum=1, default=0.7, label="NSFW Sensitivity")
             ],
-            gr.components.Textbox(label="Process Status")
+            gr.components.Textbox(label="Process Status"),
+            port=port  # Use the generated random port
         )
         iface.launch()
         event.set()  # Signal that the Gradio server has started
+
+        # Print the URL with the generated port
+        print(f"Gradio interface is available at: http://127.0.0.1:{port}/")
         
     except Exception as e:
         logging.error(f"Error launching Gradio: {e}")
@@ -110,6 +122,5 @@ if __name__ == "__main__":
         event = threading.Event()
         threading.Thread(target=launch_gradio, args=(event,)).start()
         event.wait()  # Wait for the Gradio server to start
-        webbrowser.open("http://127.0.0.1:7860/", new=2)  # new=2 will open in a new tab, if possible
     except Exception as e:
         logging.error(f"Error in main: {e}")

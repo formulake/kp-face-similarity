@@ -32,8 +32,14 @@ This script uses the [InsightFace](https://github.com/deepinsight/insightface) m
 
 ## Windows One-Click
 
+**Method 1
 1. Run **setup** (`setup.bat`) to install the venv and dependencies
-2. Run **run-fc** (`run-fc.bat`) to launch the UI
+2. Run **fc** (`fc.bat`) to launch the UI
+
+**Method 2
+1. Run **fc** (`fc.bat`) to check for and install the venv and dependencies, and launch the UI in one go
+
+fc.bat automatically checks for the venv and dependencies and creates them if they're not present. It will also update the dependencies the first time it runs but not subsequently. If you have run setup.bat earlier then fc.bat wil bypass this stage.
 
 ## MacOS Manual
 
@@ -64,12 +70,28 @@ This script uses the [InsightFace](https://github.com/deepinsight/insightface) m
     source venv/bin/activate
     python3 fc.py
 
+## MacOS Manual
+
+1. Clone or download the script: Download the script to your computer.
+
+    ```bash
+    git clone https://github.com/formulake/kp-face-similarity.git
+
+2. Navigate to the folder and run fc.py
+
+    ```bash
+    cd kp-face-similarity
+    python3 fc.py
+
+fc.py automatically checks for the venv and dependencies and creates them if they're not present. It will also update the dependencies the first time it runs but not subsequently.
+
 Access the Gradio interface: Once the script is running, open your web browser and navigate to [http://127.0.0.1:7860/](http://127.0.0.1:7860/). This will open the Gradio interface for processing images.
 
 ## How to Use
 1. Reference Image: Upload the reference image that you want to compare other images to.
 2. Source Folder Path: Enter the path to the folder containing the images you want to process.
 3. Select Buckets (10% increments): Choose the similarity thresholds for sorting the images into buckets. Images with similarity scores equal to or higher than the selected thresholds will be placed in the corresponding buckets.
+4. Enable NSFW check to filter out nude images. You can set the sensitivity slider to avoid false positives. The default value for the slider is 0.7 which works fine most of the time. The detection model used is [ifnude](https://github.com/s0md3v/ifnude)
 
 Process Status: The processing status will be displayed in this textbox.
 
